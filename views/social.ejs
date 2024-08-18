@@ -1,0 +1,68 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/appStyles.css">
+</head>
+
+<div class="taskbar">
+    <h1>Cuckoo</h1>
+    <div class="taskbarOptions">
+        <a href="/profile">Profile</a>
+        <a href="/social">Social</a>
+        <a href="/feed">Feed</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="socialMenu">
+    <button id="friendsBtn">Friends</button>
+    <button id="addFriendBtn">Add Friend</button>
+    <button id="requestsBtn">Incoming Requests</button>
+</div>
+
+<div id="overlay" class="overlay"></div>
+
+<div id="searchContainer" style="display: none;">
+    <form id="searchForm" action="/social" method="GET">
+        <input type="text" name="q" placeholder="Search users...">
+        <button type="submit">Search</button>
+    </form>
+
+    <% if (users && users.length > 0) { %>
+        <h2>Search Results:</h2>
+        <ul class="user-list">
+            <% users.forEach(function(user) { %>
+                <li>
+                    <%= user.username %>
+                    <form action="/send-request" method="POST" style="display:inline;">
+                        <input type="hidden" name="recipientId" value="<%= user._id %>">
+                        <button type="submit">Add Friend</button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p class="no-users-message">No users found</p>
+    <% } %>
+    <button id="closePopup">Cancel</button>
+</div>
+
+<div id="requestsPopup" style="display: none;">
+    <% if (friendRequests && friendRequests.length > 0) { %>
+        <h2>Incoming Friend Requests:</h2>
+        <ul class="friend-requests-list">
+            <% friendRequests.forEach(function(request) { %>
+                <li>
+                    <%= request.username %>
+                    <form action="/friends/accept-request" method="POST" style="display:inline;">
+                        <input type="hidden" name="senderId" value="<%= request._id %>">
+                        <button type="submit">Accept</button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No incoming friend requests</p>
+    <% } %>
+    <button id="closeRequestsPopup">Close</button>
+</div>
+
+<script src="/js/social.js"></script>

@@ -1,0 +1,32 @@
+<head>
+    <link rel="stylesheet"
+    type="text/css"
+    href="/css/appStyles.css">
+</head>
+
+<div class="taskbar">
+    <h1>Cuckoo</h1>
+    <div class="taskbarOptions">
+        <a href="/profile">Profile</a>
+        <a href="/social">Social</a>
+        <a href="/feed">Feed</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="profile">
+    <h1><%= user.username %></h1>
+    <img src="<%= user.profileImage %>" alt="Profile Picture" class="profilePicture" id="profilePicture">
+</div>
+<div class="overlay" id="overlay"></div>
+
+<div class="popup-menu" id="popupMenu">
+    <h2>Change Profile Picture</h2>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="profileImage" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
+    <button id="closePopup">Cancel</button>
+</div>
+
+<script src="/js/profile.js"></script>

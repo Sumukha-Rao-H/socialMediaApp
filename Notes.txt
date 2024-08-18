@@ -1,0 +1,52 @@
+reference: https://www.geeksforgeeks.org/login-form-using-node-js-and-mongodb/
+
+PACKAGES USED:
+
+1. Body parser:  processes incoming request bodies, making it easier to handle POST and PUT requests.
+2. Ejs: Template engine for web development.
+3. Express: Node js web app framework.
+    Express-session: allows the creation and storage of the session data used for authentication or user preferences
+4. Mongoose: Mongoose acts as a front end to MongoDB, an open source NoSQL database that uses a document-oriented data model.
+5. Passport: It is a middleware that is used to authenticate requests.
+    Passport-local: It is a module that lets you authenticate with a username and a password.
+    Passport-local-mongoose: Mongoose plugin that simplifies building username and password login with Passport.
+
+DATABASE USED:
+
+MongoDB: MongoDB is a non-relational database that stores data in a BSON format. 'Mongosh' is the shell used to deal with data in the database.
+
+POINTS:
+
+1. We use the view engine ejs to render the frontend.
+2. The 'secret' in the express session is used to prevent session hijacking. It calculates a hash over the combination of the session id and the secret.
+3. The 'try...catch' is used in error handling wherein if the code block inside try does not execute properly then the catch block gets executed.
+
+
+FOLDERS:
+/your-project
+├── /config                 //contains configuration files
+├── /models                 //contains mongoose models
+├── /routes                 //contains route handlers
+    ├── index.js                // Main routes (e.g., home, about, feed)
+    ├── auth.js                 // Authentication routes (e.g., login, register, logout)
+    └── upload.js               // Routes for handling file uploads
+├── /middlewares            //contains middlewares
+├── /public                 //contains static files
+    ├── /uploads                // Directory for uploaded files
+    ├── /css                    // CSS files
+    ├── /js                     // JavaScript files
+    └── /images                 // Image files
+├── /views                  //contains frontend part(EJS)
+├── app.js                  //entry point of our application
+├── package.json            //contains info about packages
+├── .gitignore              
+└── notes.md
+
+
+FEATURES TO ADD NEXT:
+
+1. Unfriending
+2. Show mutuals
+3. Dm feature with added friends
+4. Create group with added friends
+5. Admin permissions in the group

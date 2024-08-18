@@ -1,0 +1,265 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e1f0bc;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+.taskbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  /* This ensures that the items are centered vertically */
+    background-color: #627ad2;
+    padding: 20px;
+    margin: 0;
+}
+
+.taskbarOptions {
+    display: flex;
+    gap: 20px;
+}
+
+.taskbarOptions a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 1em;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.taskbarOptions a:hover {
+    background-color: #e1f0bc;
+    color: black;
+    border-radius: 5px;
+}
+
+.taskbar h1 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 1.5em;
+}
+.profilePicture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+.profilePicture:hover {
+    transform: scale(1.2); 
+}
+.profile{
+    padding-top: 20px;
+    align-items:center;
+
+}
+.popup-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Make sure the popup is above other content */
+}
+
+.popup-menu.active {
+    display: block;
+}
+
+/* Overlay */
+/* General styles for the social menu */
+.socialMenu {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f1f1f1;
+    padding: 10px;
+}
+
+.socialMenu button {
+    background-color: #627ad2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.socialMenu button:hover {
+    background-color: #45a049;
+}
+
+/* Styles for the overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1000;
+}
+
+/* Styles for the search container */
+#searchContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    width: 300px;
+}
+
+#searchContainer form {
+    display: flex;
+    flex-direction: column;
+}
+
+#searchContainer input[type="text"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#searchContainer button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#searchContainer button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Styles for the search results list */
+.user-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-list li button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-list li button:hover {
+    background-color: #45a049;
+}
+
+/* Styles for the close button */
+#closePopup {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+#closePopup:hover {
+    background-color: #d32f2f;
+}
+
+/* Styles for the no users message */
+.no-users-message {
+    text-align: center;
+    color: #888;
+}
+#requestsPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    width: 300px;
+}
+
+#requestsPopup h2 {
+    margin-top: 0;
+}
+
+#requestsPopup .friend-requests-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#requestsPopup .friend-requests-list li {
+    margin-bottom: 10px;
+}
+
+#requestsPopup .friend-requests-list li form {
+    display: inline;
+}
+
+#requestsPopup .friend-requests-list li button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#requestsPopup .friend-requests-list li button:hover {
+    background-color: #45a049;
+}
+
+#requestsPopup p {
+    color: #999;
+}
+
+/* Close Buttons */
+#closePopup, #closeRequestsPopup {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#closePopup:hover, #closeRequestsPopup:hover {
+    background-color: #e53935;
+}
+
