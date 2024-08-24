@@ -27,7 +27,7 @@ router.get('/social', isLoggedIn, async (req, res) => {
           users = await User.find({ username: new RegExp(query, 'i') });
       }
 
-      res.render('social', { user: req.user, friendRequests: user.friendRequests, users: users });
+      res.render('social', { user: req.user, friendRequests: user.friendRequests, users: users});
   } catch (error) {
       res.status(500).json({ message: error.message });
   }

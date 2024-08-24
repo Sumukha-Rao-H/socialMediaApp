@@ -18,8 +18,6 @@
     <button id="requestsBtn">Incoming Requests</button>
 </div>
 
-<div id="overlay" class="overlay"></div>
-
 <div id="searchContainer" style="display: none;">
     <form id="searchForm" action="/social" method="GET">
         <input type="text" name="q" placeholder="Search users...">
@@ -45,24 +43,26 @@
     <button id="closePopup">Cancel</button>
 </div>
 
-<div id="requestsPopup" style="display: none;">
-    <% if (friendRequests && friendRequests.length > 0) { %>
-        <h2>Incoming Friend Requests:</h2>
-        <ul class="friend-requests-list">
-            <% friendRequests.forEach(function(request) { %>
-                <li>
-                    <%= request.username %>
-                    <form action="/friends/accept-request" method="POST" style="display:inline;">
-                        <input type="hidden" name="senderId" value="<%= request._id %>">
-                        <button type="submit">Accept</button>
-                    </form>
-                </li>
-            <% }); %>
+<div id="requestsPopup" class="popup" style="display: none;">
+    <div class="popup-content">
+        <h2>Incoming Friend Requests</h2>
+        <ul id="friendRequestsList" class="friend-requests-list">
+            <% if (friendRequests && friendRequests.length > 0) { %>
+                <% friendRequests.forEach(function(request) { %>
+                    <li>
+                        <%= request.username %>
+                        <form action="accept-request" method="POST" style="display:inline;">
+                            <input type="hidden" name="senderId" value="<%= request._id %>">
+                            <button type="submit">Accept</button>
+                        </form>
+                    </li>
+                <% }); %>
+            <% } else { %>
+                <li>No incoming friend requests</li>
+            <% } %>
         </ul>
-    <% } else { %>
-        <p>No incoming friend requests</p>
-    <% } %>
-    <button id="closeRequestsPopup">Close</button>
+        <button id="closePopupBtn">Close</button>
+    </div>
 </div>
 
 <script src="/js/social.js"></script>

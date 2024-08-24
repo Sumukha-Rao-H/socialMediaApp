@@ -179,7 +179,7 @@ body {
 }
 
 /* Styles for the close button */
-#closePopup {
+#closePopup, #closePopupBtn {
     background-color: #f44336;
     color: white;
     border: none;
@@ -192,7 +192,7 @@ body {
     text-align: center;
 }
 
-#closePopup:hover {
+#closePopup, #closePopupBtn:hover {
     background-color: #d32f2f;
 }
 
@@ -247,19 +247,30 @@ body {
 #requestsPopup p {
     color: #999;
 }
-
-/* Close Buttons */
-#closePopup, #closeRequestsPopup {
-    background-color: #f44336;
-    border: none;
-    color: white;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
+.friend-requests-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
-#closePopup:hover, #closeRequestsPopup:hover {
-    background-color: #e53935;
+.friend-requests-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.friend-requests-list li button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.friend-requests-list li button:hover {
+    background-color: #45a049;
 }
 
