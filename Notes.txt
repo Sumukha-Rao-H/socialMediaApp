@@ -45,8 +45,6 @@ FOLDERS:
 
 FEATURES TO ADD NEXT:
 
-1. Unfriending
-2. Show mutuals
-3. Dm feature with added friends
-4. Create group with added friends
-5. Admin permissions in the group
++ reject friend request
++ show profile picture in the /social lists
++ remove friend

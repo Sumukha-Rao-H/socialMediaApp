@@ -18,6 +18,15 @@
     <button id="requestsBtn">Incoming Requests</button>
 </div>
 
+<div id="friendsList" style="display:block;">
+    <h2>Your Friends:</h2>
+    <ul>
+        <% friends.forEach(function(friend) { %>
+            <li><%= friend.username %></li>
+        <% }); %>
+    </ul>
+</div>
+
 <div id="searchContainer" style="display: none;">
     <form id="searchForm" action="/social" method="GET">
         <input type="text" name="q" placeholder="Search users...">

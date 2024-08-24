@@ -274,3 +274,49 @@ body {
     background-color: #45a049;
 }
 
+#friendsList {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Hide Popups by Default */
+#friendsList {
+    display: none;
+}
+
+/* Title Styles */
+#friendsList h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+/* List Styles */
+#friendsList ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#friendsList li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    color: #555;
+}
+
+#friendsList li:last-child {
+    border-bottom: none;
+}
+
