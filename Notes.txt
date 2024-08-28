@@ -48,3 +48,7 @@ FEATURES TO ADD NEXT:
 + reject friend request
 + show profile picture in the /social lists
 + remove friend
+
+PROBLEMS TO FIX:
+
++ send private messages to other friends in list
