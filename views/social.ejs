@@ -22,7 +22,11 @@
     <h2>Your Friends:</h2>
     <ul>
         <% friends.forEach(function(friend) { %>
-            <li><%= friend.username %></li>
+            <li>
+                <%= friend.username %>
+                <form action="/chat/<%= friend._id %>" method="GET" style="display:inline;">
+                    <button type="submit">Message</button>
+            </li>
         <% }); %>
     </ul>
 </div>

@@ -8,7 +8,6 @@ router.get("/about", (req, res) => res.render("about"));
 router.get("/welcome", isLoggedIn, (req, res) => res.render("welcome"));
 router.get("/feed", isLoggedIn, (req, res) => res.render("feed"));
 
-
 router.get("/profile", isLoggedIn, function (req, res) {
     res.render("profile", { user: req.user });
 });

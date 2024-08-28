@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Chat</title>
+    <link rel="stylesheet" href="/css/chatStyles.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/chat.js" defer></script>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>Chat with <%= friendName %></h2>
+            <button onclick="window.location.href='/social';">Back to Friends List</button>
+        </div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <form id="messageForm" class="chat-form">
+            <input type="hidden" id="currentUserId" value="<%= currentUserId %>">
+            <input type="hidden" id="friendId" value="<%= friendId %>">
+            <input type="text" id="messageInput" placeholder="Type your message..." autocomplete="off" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</body>
+</html>
+

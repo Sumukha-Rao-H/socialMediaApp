@@ -310,10 +310,23 @@ body {
 }
 
 #friendsList li {
-    padding: 10px 0;
+    padding: 10px;
     border-bottom: 1px solid #ddd;
-    font-size: 1em;
-    color: #555;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#friendsList li button{
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#friendsList li button:hover {
+    background-color: #45a049;
 }
 
 #friendsList li:last-child {
