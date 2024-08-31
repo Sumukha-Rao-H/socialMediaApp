@@ -26,6 +26,7 @@
                 <%= friend.username %>
                 <form action="/chat/<%= friend._id %>" method="GET" style="display:inline;">
                     <button type="submit">Message</button>
+                </form>
             </li>
         <% }); %>
     </ul>
