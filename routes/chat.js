@@ -1,27 +1,39 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const Message = require('../models/Message');
 const { isLoggedIn } = require('../middlewares/auth');
 
 router.get('/chat/:friendId', isLoggedIn, async (req, res) => {
     try {
-        const currentUser = req.user; // This comes from the session
         const friendId = req.params.friendId;
+        const currentUserId = req.user._id;
 
-        // Fetch friend's details
+        // Find the friend to get the username
         const friend = await User.findById(friendId);
 
         if (!friend) {
             return res.status(404).json({ message: 'Friend not found' });
         }
 
+        // Fetch messages between the logged-in user and the friend
+        const messages = await Message.find({
+            $or: [
+                { sender: currentUserId, receiver: friendId },
+                { sender: friendId, receiver: currentUserId }
+            ]
+        }).sort('timestamp');
+
+        // Render the chat view, passing the messages, friend name, and current user ID
         res.render('chat', {
-            friendName: friend.username, // Pass friend's name
-            currentUserId: currentUser._id, // Pass current user’s ID
-            friendId: friend._id // Pass friend's ID
+            friendName: friend.username,
+            messages: messages,
+            currentUserId: currentUserId,
+            friendId:friendId
         });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error('Error fetching messages:', error);
+        res.status(500).json({ message: 'Failed to load chat' });
     }
 });
 

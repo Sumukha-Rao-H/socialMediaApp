@@ -5,7 +5,9 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const session = require("express-session"); 
 const http = require("http"); 
-const socketIo = require("socket.io"); 
+const socketIo = require("socket.io");
+const Message = require('./models/Message');
+
 
 const app = express();
 const server = http.createServer(app);
@@ -43,13 +45,33 @@ app.use('/', require('./routes/chat'));
 
 io.on('connection', (socket) => {
 
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg);
+    socket.on('chat message', async (msg) => {
+        try {
+            // Check if the message content is not empty
+            if (!msg.content || msg.content.trim() === '') {
+                console.error('Error: Message content is empty.');
+                return;
+            }
+
+            // Create a new message and save it to the database
+            const message = new Message({
+                sender: msg.sender,
+                receiver: msg.receiver,
+                content: msg.content
+            });
+            await message.save();
+
+            // Emit the message to the other user
+            io.emit('chat message', message);
+        } catch (error) {
+            console.error('Error saving message:', error);
+        }
     });
 
     socket.on('disconnect', () => {
     });
 });
+
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {

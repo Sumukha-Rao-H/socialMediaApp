@@ -1,39 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const socket = io(); // Connect to the Socket.IO server
-
-    const chatForm = document.getElementById('messageForm');
+    const socket = io();
+    const messageForm = document.getElementById('messageForm');
     const messageInput = document.getElementById('messageInput');
     const chatMessages = document.getElementById('chatMessages');
-    
-    // Get the ID of the current user and friend
-    const currentUserId = document.getElementById('currentUserId').value;
-    const friendId = document.getElementById('friendId').value;
 
-    if (chatForm && messageInput && chatMessages) {
-        // Handle sending messages
-        chatForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const message = messageInput.value;
-            socket.emit('chat message', { message, senderId: currentUserId, receiverId: friendId });
+    messageForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const message = messageInput.value;
+        const currentUserId = document.getElementById('currentUserId').value;
+        const friendId = document.getElementById('friendId').value;
+
+        if (message.trim()) {
+            socket.emit('chat message', {
+                content: message,
+                sender: currentUserId,
+                receiver: friendId
+            });
             messageInput.value = '';
-        });
+        }
+    });
 
-        // Display incoming messages
-        socket.on('chat message', ({ message, senderId }) => {
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('chat-message');
-            if (senderId === currentUserId) {
-                messageElement.classList.add('sent');
-            } else {
-                messageElement.classList.add('received');
-            }
-            messageElement.textContent = message;
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
-        });
-    } else {
-        console.error('One or more required elements are missing');
-    }
+    socket.on('chat message', (msg) => {
+        const messageClass = msg.sender === document.getElementById('currentUserId').value ? 'sent' : 'received';
+        const messageElement = document.createElement('div');
+        messageElement.className = `message ${messageClass}`;
+        messageElement.innerHTML = `<p>${msg.content}</p><span>${new Date(msg.timestamp).toLocaleTimeString()}</span>`;
+        chatMessages.appendChild(messageElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+    });
 });
-
-

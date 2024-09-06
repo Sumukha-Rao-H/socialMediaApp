@@ -14,7 +14,14 @@
             <h2>Chat with <%= friendName %></h2>
             <button onclick="window.location.href='/social';">Back to Friends List</button>
         </div>
-        <div id="chatMessages" class="chat-messages"></div>
+        <div id="chatMessages" class="chat-messages">
+            <% messages.forEach(message => { %>
+                <div class="<%= message.sender.toString() === currentUserId.toString() ? 'message sent' : 'message received' %>">
+                    <p><%= message.content %></p>
+                    <span class="timestamp"><%= new Date(message.timestamp).toLocaleTimeString() %></span>
+                </div>
+            <% }); %>
+        </div>
         <form id="messageForm" class="chat-form">
             <input type="hidden" id="currentUserId" value="<%= currentUserId %>">
             <input type="hidden" id="friendId" value="<%= friendId %>">
@@ -24,4 +31,5 @@
     </div>
 </body>
 </html>
+
 

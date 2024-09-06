@@ -42,32 +42,10 @@ body{
 
 .chat-messages {
     flex: 1;
-    padding: 10px;
+    padding: 5px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-}
-
-.chat-message {
-    margin: 5px 0;
-    padding: 10px;
-    border-radius: 8px;
-    max-width: 60%;
-    display: inline-block;
-    clear: both;
-}
-
-.chat-message.sent {
-    align-self: flex-end;
-    background-color: #627ad2;
-    text-align: right;
-    color: #ffffff;
-}
-
-.chat-message.received {
-    align-self: flex-start;
-    background-color: #f1f0f0;
-    text-align: left;
 }
 
 .chat-form {
@@ -90,4 +68,35 @@ body{
     border-radius: 8px;
     cursor: pointer;
 }
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    display: flex;
+    word-wrap: break-word;
+    justify-content: space-around;
+}
 
+.sent {
+    align-self: flex-end;
+    background-color: #627ad2;
+    text-align: right;
+    color: #ffffff;
+}
+
+.received {
+    align-self:flex-start;
+    background-color: #f1f0f0;
+    text-align: left;
+}
+.timestamp {
+    font-size: 0.5em; 
+    margin-top: 5px;
+    align-self:flex-end; 
+}
+.sent .timestamp{
+    color: #ffffff;
+}
+.received .timestamp{
+    color: #000000;
+}
