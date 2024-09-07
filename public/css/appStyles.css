@@ -232,16 +232,23 @@ body {
 }
 
 #requestsPopup .friend-requests-list li button {
-    background-color: #4CAF50;
     border: none;
     color: white;
     padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
 }
-
-#requestsPopup .friend-requests-list li button:hover {
+.acceptBtn{
     background-color: #45a049;
+}
+.rejectBtn{
+    background-color: #d32f2f;
+}
+.acceptBtn:hover{
+    background-color: #3c8d40;
+}
+.rejectBtn:hover{
+    background-color: #c02828;
 }
 
 #requestsPopup p {
@@ -262,7 +269,6 @@ body {
 }
 
 .friend-requests-list li button {
-    background-color: #4CAF50;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -270,9 +276,6 @@ body {
     cursor: pointer;
 }
 
-.friend-requests-list li button:hover {
-    background-color: #45a049;
-}
 
 #friendsList {
     position: absolute;

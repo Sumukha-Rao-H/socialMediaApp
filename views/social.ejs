@@ -65,10 +65,16 @@
                 <% friendRequests.forEach(function(request) { %>
                     <li>
                         <%= request.username %>
-                        <form action="accept-request" method="POST" style="display:inline;">
-                            <input type="hidden" name="senderId" value="<%= request._id %>">
-                            <button type="submit">Accept</button>
-                        </form>
+                        <div class="btns">
+                            <form action="accept-request" method="POST" style="display:inline;">
+                                <input type="hidden" name="senderId" value="<%= request._id %>">
+                                <button type="submit" class="acceptBtn">Accept</button>
+                            </form>
+                            <form action="reject-request" method="POST" style="display:inline;">
+                                <input type="hidden" name="senderId" value="<%= request._id %>">
+                                <button type="submit" class="rejectBtn">Reject</button>
+                            </form>
+                        </div>
                     </li>
                 <% }); %>
             <% } else { %>
