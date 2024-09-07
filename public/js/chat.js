@@ -28,4 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
         chatMessages.appendChild(messageElement);
         chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
     });
+
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 });
