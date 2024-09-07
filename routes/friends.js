@@ -34,6 +34,10 @@ router.post('/send-request', isLoggedIn, async (req, res) => {
             return res.status(404).json({ message: 'Recipient not found' });
         }
 
+        if (sender._id.toString()==recipient._id.toString()) {
+            return res.status(400).json({ message: 'Cannot send friend request to yourself' });
+        }
+
         if (sender.friends.includes(recipientId)) {
             return res.status(400).json({ message: 'This user is already your friend' });
         }
