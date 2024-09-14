@@ -1,0 +1,53 @@
+<head></head>
+    <link rel="stylesheet" type="text/css" href="/css/appStyles.css">
+    <link rel="stylesheet" type="text/css" href="/css/groupStyles.css">
+</head>
+
+<div class="taskbar">
+    <h1>Cuckoo</h1>
+    <div class="taskbarOptions">
+        <a href="/profile">Profile</a>
+        <a href="/social">Social</a>
+        <a href="/feed">Feed</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+<div class="center-container">
+    <div id="groupsList">
+        <ul>
+            <li>
+                <img src="/uploads/default-group.jpg">
+                <a href="#">Group 1</a>
+            </li>
+            <li>
+                <img src="/uploads/default-group.jpg">
+                <a href="#">Group 2</a>
+            </li>
+            <li>
+                <img src="/uploads/default-group.jpg">
+                <a href="#">Group 3</a>
+            </li>
+            <li>
+                <img src="/uploads/default-group.jpg
+                ">
+                <a href="#">Group 4</a>
+            </li>
+        </ul>
+    </div>
+
+    <button id="createGroupBtn">Create group</button>
+</div>
+
+<div id="createGroupModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="document.getElementById('createGroupModal').style.display='none'">&times;</span>
+        <h2>Create a New Group</h2>
+        <form id="createGroupForm">
+            <label for="groupName">Group Name:</label>
+            <input type="text" id="groupName" name="groupName" required>
+            
+            <button type="submit">Create Group</button>
+        </form>
+    </div>
+</div>
+<script src="/js/groups.js"></script>

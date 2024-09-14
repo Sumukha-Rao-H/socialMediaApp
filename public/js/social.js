@@ -24,6 +24,9 @@ document.getElementById("closePopupBtn").addEventListener("click", function() {
     document.getElementById("requestsPopup").style.display = "none";
     document.getElementById("friendsList").style.display = "block";
 });
+document.getElementById("groupsBtn").addEventListener('click',function(){
+    window.location.href = '/groups';
+});
 
 
 

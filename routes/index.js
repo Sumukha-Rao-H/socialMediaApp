@@ -34,5 +34,8 @@ router.get('/social', isLoggedIn, async (req, res) => {
   }
 });
 
+router.get("/groups", isLoggedIn, (req, res) => res.render("groups"));
+
+
 module.exports = router;
 

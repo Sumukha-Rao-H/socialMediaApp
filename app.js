@@ -20,6 +20,7 @@ mongoose.connect("mongodb://localhost:27017/credentials", {
 
 require('./config/passport')(passport);
 
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,6 +43,7 @@ app.use('/', require('./routes/auth'));
 app.use('/', require('./routes/upload'));
 app.use('/', require('./routes/friends'));
 app.use('/', require('./routes/chat'));
+app.use('/', require('./routes/groups'));
 
 io.on('connection', (socket) => {
 
