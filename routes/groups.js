@@ -41,4 +41,16 @@ router.get('/groups', isLoggedIn, async (req, res) => {
     }
 });
 
+router.get('/groups/:groupId', isLoggedIn, async (req, res) => {
+    try {
+        const groupId = req.params.groupId;
+        const group = await Group.findById(groupId);
+
+        res.render('groupDetails', { group });
+    } catch (error) {
+        console.error('Error loading group:', error);
+        res.status(500).json({ message: 'Failed to load group' });
+    }
+});
+
 module.exports = router;

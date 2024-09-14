@@ -45,10 +45,9 @@ FOLDERS:
 
 FEATURES TO ADD NEXT:
 
-+ reject friend request
 + show profile picture in the /social lists
++ change group icon 
++ use the group chat interface for personal messages
 + remove friend
 
 PROBLEMS TO FIX:
-
-+ send private messages to other friends in list

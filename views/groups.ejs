@@ -19,7 +19,7 @@
                 <% groups.forEach(group => { %>
                     <li>
                         <img src="/uploads/<%= group.profileImage || 'default-group.jpg' %>" alt="Group Icon">
-                        <a href="#"> <%= group.groupName %> </a>
+                        <a href="/groups/<%= group._id %>"> <%= group.groupName %> </a>
                     </li>
                 <% }); %>
             <% } else { %>
