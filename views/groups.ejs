@@ -15,25 +15,19 @@
 <div class="center-container">
     <div id="groupsList">
         <ul>
-            <li>
-                <img src="/uploads/default-group.jpg">
-                <a href="#">Group 1</a>
-            </li>
-            <li>
-                <img src="/uploads/default-group.jpg">
-                <a href="#">Group 2</a>
-            </li>
-            <li>
-                <img src="/uploads/default-group.jpg">
-                <a href="#">Group 3</a>
-            </li>
-            <li>
-                <img src="/uploads/default-group.jpg
-                ">
-                <a href="#">Group 4</a>
-            </li>
+            <% if (groups.length > 0) { %>
+                <% groups.forEach(group => { %>
+                    <li>
+                        <img src="/uploads/<%= group.profileImage || 'default-group.jpg' %>" alt="Group Icon">
+                        <a href="#"> <%= group.groupName %> </a>
+                    </li>
+                <% }); %>
+            <% } else { %>
+                <li>No groups found. Create one now!</li>
+            <% } %>
         </ul>
     </div>
+
 
     <button id="createGroupBtn">Create group</button>
 </div>
@@ -46,7 +40,7 @@
             <label for="groupName">Group Name:</label>
             <input type="text" id="groupName" name="groupName" required>
             
-            <button type="submit">Create Group</button>
+            <button class="createBtn" type="submit">Create Group</button>
         </form>
     </div>
 </div>

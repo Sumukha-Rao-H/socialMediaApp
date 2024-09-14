@@ -17,7 +17,7 @@ router.post('/create-group', isLoggedIn, async (req, res) => {
         const newGroup = new Group({
             groupName,
             creator: creatorId,
-            profileImage: 'default.jpg' // Default profile image
+            profileImage: 'default-group.jpg' // Default profile image
         });
 
         await newGroup.save();
@@ -26,6 +26,18 @@ router.post('/create-group', isLoggedIn, async (req, res) => {
     } catch (error) {
         console.error('Error creating group:', error);
         res.status(500).json({ message: error.message });
+    }
+});
+
+router.get('/groups', isLoggedIn, async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const groups = await Group.find({ creator: userId });
+
+        res.render('groups', { groups }); 
+    } catch (error) {
+        console.error('Error fetching groups:', error);
+        res.status(500).json({ message: 'Failed to load groups' });
     }
 });
 
