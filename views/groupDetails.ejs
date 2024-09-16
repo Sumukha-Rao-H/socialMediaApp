@@ -9,7 +9,7 @@
 <body>
     <div class="taskbar">
         <div class="group-info">
-            <img src="/uploads/<%= group.profileImage || 'default-group.jpg' %>" alt="<%= group.groupName %>" class="group-icon">
+            <img src="/uploads/<%=group.profileImage%>" alt="<%= group.groupName %>" class="group-icon" id="groupIcon">
             <h1><%= group.groupName %></h1>
         </div>
         <button id="showMembersBtn">Show Members</button>
@@ -39,6 +39,16 @@
     </div>
 </body>
 
+<div id="overlay" class="hidden"></div>
+
+    <div id="popupMenu" class="popup-menu hidden">
+        <h2>Change Profile Picture</h2>
+        <form action="/uploadGroupIcon/<%= group._id %>" method="POST" enctype="multipart/form-data">
+            <input type="file" name="groupIcon" accept="image/*" required>
+            <button type="submit">Upload</button>
+        </form>
+        <button id="closePopup">Cancel</button>
+    </div>
 <script src="/js/groupChat.js"></script>
 
 </html>

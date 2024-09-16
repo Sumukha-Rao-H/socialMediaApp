@@ -45,8 +45,8 @@ FOLDERS:
 
 FEATURES TO ADD NEXT:
 
++ admins can add friends to group
 + show profile picture in the /social lists
-+ change group icon 
 + use the group chat interface for personal messages
 + remove friend
 

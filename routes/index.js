@@ -7,6 +7,7 @@ router.get("/", (req, res) => res.render("login"));
 router.get("/about", (req, res) => res.render("about"));
 router.get("/welcome", isLoggedIn, (req, res) => res.render("welcome"));
 router.get("/feed", isLoggedIn, (req, res) => res.render("feed"));
+router.get("/groupDetails", isLoggedIn, (req, res) => res.render("groupDetails"));
 
 router.get("/profile", isLoggedIn, function (req, res) {
     res.render("profile", { user: req.user });
