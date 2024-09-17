@@ -51,3 +51,5 @@ FEATURES TO ADD NEXT:
 + remove friend
 
 PROBLEMS TO FIX:
+
++ fix : unable to add single member to group "routes/groups.js/addMembers"
