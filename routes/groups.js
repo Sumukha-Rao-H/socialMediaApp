@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Group = require('../models/Group');
+const User = require('../models/User');
 const { isLoggedIn } = require('../middlewares/auth');
 const multer = require('multer');
 const path = require('path');
@@ -47,10 +48,13 @@ router.post('/create-group', isLoggedIn, async (req, res) => {
         const newGroup = new Group({
             groupName,
             creator: creatorId,
-            profileImage: 'default-group.jpg' // Default profile image
+            profileImage: 'default-group.jpg', // Default profile image
+            admins: [creatorId],  // Add the creator as an admin
+            members: [creatorId],
         });
 
         await newGroup.save();
+
 
         res.status(200).json({ message: 'Group created successfully', group: newGroup });
     } catch (error) {
@@ -62,8 +66,12 @@ router.post('/create-group', isLoggedIn, async (req, res) => {
 router.get('/groups', isLoggedIn, async (req, res) => {
     try {
         const userId = req.user._id;
-        const groups = await Group.find({ creator: userId });
-
+        const groups = await Group.find({
+            $or: [
+                { members: userId },
+                { creator: userId } 
+            ]
+        });
         res.render('groups', { groups }); 
     } catch (error) {
         console.error('Error fetching groups:', error);
@@ -76,11 +84,20 @@ router.get('/groups/:groupId', isLoggedIn, async (req, res) => {
         const groupId = req.params.groupId;
         const group = await Group.findById(groupId);
 
-        res.render('groupDetails', { group });
+        const userId = req.user._id;
+        const user = await User.findById(userId).populate('friends');
+        const friends = user.friends;
+        const isAdmin = group.admins.includes(req.user._id);
+        const members = await User.find({ _id: { $in: group.members } });
+
+        res.render('groupDetails', { group, isAdmin, friends,members });
+
+
     } catch (error) {
         console.error('Error loading group:', error);
         res.status(500).json({ message: 'Failed to load group' });
     }
+
 });
 
 router.post('/uploadGroupIcon/:groupId', isLoggedIn, function (req, res) {
@@ -110,5 +127,45 @@ router.post('/uploadGroupIcon/:groupId', isLoggedIn, function (req, res) {
         }
     });
 });
+
+router.post('/addMembers/:groupId', isLoggedIn, async (req, res) => {
+    try {
+        const groupId = req.params.groupId;
+        const { members } = req.body;
+
+        if (!Array.isArray(members)) {
+            if (typeof members === 'string') {
+                members = [members]; // Convert single string to array
+            } else {
+                return res.status(400).json({ message: 'Invalid members format' });
+            }
+        }
+
+        const group = await Group.findById(groupId);
+
+        if (!group) {
+            return res.status(404).json({ message: 'Group not found' });
+        }
+
+        // Ensure only admins can add members
+        if (!group.admins.includes(req.user._id)) {
+            return res.status(403).json({ message: 'You do not have permission to add members' });
+        }
+
+        // Add each selected member to the group
+        members.forEach(memberId => {
+            if (!group.members.includes(memberId)) {
+                group.members.push(memberId);
+            }
+        });
+
+        await group.save();
+        res.redirect(`/groups/${groupId}`);
+    } catch (error) {
+        console.error('Error adding members:', error);
+        res.status(500).json({ message: 'Failed to add members' });
+    }
+});
+
 
 module.exports = router;

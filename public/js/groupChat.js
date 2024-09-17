@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const overlay = document.getElementById('overlay');
     const popupMenu = document.getElementById('popupMenu');
     const closePopupBtn = document.getElementById('closePopup');
+    const addMembersBtn = document.getElementById('addMembersBtn');
+    const addMembersPopup = document.getElementById('addMembersPopup');
+    const closeAddMembersPopup = document.getElementById('closeAddMembersPopup');
 
     function openPopup() {
         overlay.classList.remove('hidden');
@@ -16,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function closePopup() {
         overlay.classList.add('hidden');
         popupMenu.classList.add('hidden');
+        addMembersPopup.classList.add('hidden');
     }
 
     if (groupIcon) {
@@ -28,5 +32,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (overlay) {
         overlay.addEventListener('click', closePopup);
+    }
+
+    if (addMembersBtn) {
+        addMembersBtn.addEventListener('click', () => {
+            addMembersPopup.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+        });
+    }
+
+    if (closeAddMembersPopup) {
+        closeAddMembersPopup.addEventListener('click', () => {
+            addMembersPopup.classList.add('hidden');
+            overlay.classList.add('hidden');
+        });
     }
 });

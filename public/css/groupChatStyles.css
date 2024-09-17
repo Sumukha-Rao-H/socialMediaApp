@@ -42,7 +42,7 @@ body {
     color: white;
 }
 
-#showMembersBtn {
+#showMembersBtn, #addMembersBtn {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -52,7 +52,7 @@ body {
     font-size: 16px;
 }
 
-#showMembersBtn:hover {
+#showMembersBtn:hover,#addMembersBtn:hover {
     background-color: #45a049;
 }
 
@@ -124,7 +124,7 @@ body {
     border-radius: 5px;
 }
 
-#sendMessageBtn {
+#sendMessageBtn, #addMembersBtn {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -133,7 +133,7 @@ body {
     cursor: pointer;
 }
 
-#sendMessageBtn:hover {
+#sendMessageBtn, #addMembersBtn:hover {
     background-color: #45a049;
 }
 /* Popup and overlay styles */
