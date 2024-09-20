@@ -45,10 +45,11 @@ FOLDERS:
 
 FEATURES TO ADD NEXT:
 
-+ admins can add friends to group
 + show profile picture in the /social lists
 + use the group chat interface for personal messages
 + remove friend
++ remove member from group as admin
+
 
 PROBLEMS TO FIX:
 
