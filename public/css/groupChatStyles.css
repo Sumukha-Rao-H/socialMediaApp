@@ -191,4 +191,36 @@ body {
 .popup-menu #closePopup:hover {
     background-color: #e53935;
 }
+#contextMenu {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: none; /* Initially hidden */
+    padding: 10px; /* Space inside the menu */
+    border-radius: 5px; /* Rounded corners */
+}
 
+#contextMenu button {
+    display: block; /* Stack buttons vertically */
+    width: 100%; /* Full width */
+    padding: 8px; /* Padding for buttons */
+    margin: 5px 0; /* Margin between buttons */
+    background-color: #007bff; /* Button background */
+    color: white; /* Button text color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners for buttons */
+    cursor: pointer; /* Pointer cursor */
+}
+
+#contextMenu button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+#contextMenu.hidden {
+    display: none;
+}
+#contextMenu.visible {
+    display: block;
+}

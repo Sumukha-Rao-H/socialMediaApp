@@ -90,7 +90,7 @@ router.get('/groups/:groupId', isLoggedIn, async (req, res) => {
         const isAdmin = group.admins.includes(req.user._id);
         const members = await User.find({ _id: { $in: group.members } });
 
-        res.render('groupDetails', { group, isAdmin, friends,members });
+        res.render('groupDetails', { group, isAdmin, friends, members });
 
 
     } catch (error) {
@@ -167,5 +167,38 @@ router.post('/addMembers/:groupId', isLoggedIn, async (req, res) => {
     }
 });
 
+router.post('/groups/:groupId/promote', isLoggedIn, async (req, res) => {
+    try {
+        const groupId = req.params.groupId;
+        const { memberId } = req.body; // ID of the member to promote
+        const userId = req.user._id; // ID of the user making the request
+
+        const group = await Group.findById(groupId);
+
+        if (!group) {
+            return res.status(404).json({ message: 'Group not found' });
+        }
+
+        if (!group.admins.includes(userId)) {
+            return res.status(403).json({ message: 'You are not authorized to promote members' });
+        }
+
+        if (group.admins.includes(memberId)) {
+            return res.status(400).json({ message: 'This member is already an admin' });
+        }
+
+        if (!group.members.includes(memberId)) {
+            return res.status(400).json({ message: 'This user is not a member of the group' });
+        }
+
+        group.admins.push(memberId);
+        await group.save();
+
+        res.status(200).json({ message: 'Member promoted to admin successfully' });
+    } catch (error) {
+        console.error('Error promoting member to admin:', error);
+        res.status(500).json({ message: 'Failed to promote member to admin' });
+    }
+});
 
 module.exports = router;

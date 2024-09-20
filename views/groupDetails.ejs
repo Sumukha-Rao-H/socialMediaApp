@@ -26,11 +26,21 @@
             <h2>Members:</h2>
             <ul>
                 <% members.forEach(member => { %>
-                    <li><%= member.username %></li>
+                    <li class="member-item" data-member-id="<%= member._id %>">
+                        <%= member.username %>
+                        <% if (group.admins.includes(member._id)) { %>
+                            <span>(Admin)</span>
+                        <% } %>
+                    </li>
                 <% }); %>
             </ul>
         </div>
-
+        
+        <div id="contextMenu" class="hidden">
+            <button id="promoteToAdminBtn">Promote to Admin</button>
+            <button id="removeFromGroup">Remove from group</button>
+        </div>
+        
         <div class="chat-interface">
             <h2>Group Chat</h2>
             <div class="chat-box">
@@ -55,7 +65,6 @@
         <button id="closePopup">Cancel</button>
     </div>
 
-
 <div id="overlay" class="hidden"></div>
 
     <div id="addMembersPopup" class="popup-menu hidden">
@@ -72,6 +81,11 @@
         <button id="closeAddMembersPopup">Cancel</button>
     </div>
 
+<script>
+    const isAdmin = <%=isAdmin%>; 
+    const groupAdmins = <%- JSON.stringify(group.admins) %>; 
+    const groupId = '<%= group._id %>';
+</script>
 <script src="/js/groupChat.js"></script>
 </html>
 
