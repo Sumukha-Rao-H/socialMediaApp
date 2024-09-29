@@ -1,7 +1,7 @@
 const socket = io();
 document.addEventListener('DOMContentLoaded', () => { 
 
-    // Connect and join the group
+    const currentUserId = '<%= user._id %>';
     socket.on('connect', () => {
         const groupId = document.getElementById('sendMessageBtn').getAttribute('data-group-id');
         if (!groupId) {
@@ -11,38 +11,55 @@ document.addEventListener('DOMContentLoaded', () => {
         socket.emit('joinGroup', groupId); // Emit to join the group
     });
 
-    socket.on('load previous messages', (messages) => {
+    // Function to scroll to the bottom of the chat
+    function scrollToBottom() {
+        const chatMessages = document.getElementById('chat-messages');
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Load previous messages
+    socket.on('previousMessages', (messages) => {
         const chatMessages = document.getElementById('chat-messages');
         if (!chatMessages) {
             console.log('chatMessages element not found!');
             return;
         }
 
+        // Clear existing messages if needed (optional)
+        chatMessages.innerHTML = '';
+
         messages.forEach(message => {
             const messageElement = document.createElement('div');
             messageElement.className = 'chat-message';
-            messageElement.innerHTML = `<strong>${message.sender.username}</strong>: ${message.content}`;
+            const senderName = typeof message.sender === 'object' ? message.sender.username : message.sender;
+            messageElement.innerHTML = `<strong>${senderName}</strong>: ${message.content}`;
             chatMessages.appendChild(messageElement);
         });
 
-        // Scroll to the bottom to show the latest messages
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        // Scroll to the bottom after loading previous messages
+        scrollToBottom();
     });
-        socket.on('group chat', (newMessage) => {
-            const chatMessages = document.getElementById('chat-messages');
-            if (!chatMessages) {
-                console.log('chatMessages element not found!');
-                return;
-            }
-    
-            const messageElement = document.createElement('div');
-            messageElement.className = 'chat-message';
-            const senderName = typeof newMessage.sender === 'object' ? newMessage.sender.username : newMessage.sender;
-            messageElement.innerHTML = `<strong>${senderName}</strong>: ${newMessage.content}`;
-    
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        });
+
+    // Listen for new messages
+    socket.on('group chat', (newMessage) => {
+        const chatMessages = document.getElementById('chat-messages');
+        if (!chatMessages) {
+            console.log('chatMessages element not found!');
+            return;
+        }
+
+        // Create the message element
+        const messageElement = document.createElement('div');
+        messageElement.className = newMessage.sender._id === currentUserId ? 'sent' : 'recieved'; // Own message or other
+
+        const senderName = typeof newMessage.sender === 'object' ? newMessage.sender.username : newMessage.sender;
+        messageElement.innerHTML = `<strong>${senderName}</strong>: ${newMessage.content}`;
+
+        // Append the message element to the chat window
+        chatMessages.appendChild(messageElement);
+        
+        // Scroll to the bottom to show the latest message
+        scrollToBottom();
     });
 
     // Handle sending messages
@@ -74,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('sendMessageBtn').click();
         }
     });
+});
 ///
 document.getElementById('showMembersBtn').addEventListener('click', function() {
     document.getElementById('membersList').classList.toggle('hidden');

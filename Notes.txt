@@ -53,4 +53,5 @@ FEATURES TO ADD NEXT:
 
 PROBLEMS TO FIX:
 
++ fix : bugs in the groupchat page. [display username instead of id, fix message ui]
 + fix : unable to add single member to group "routes/groups.js/addMembers"

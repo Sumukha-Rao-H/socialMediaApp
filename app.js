@@ -86,8 +86,8 @@ io.on('connection', (socket) => {
             const groupIdObjectId = new mongoose.Types.ObjectId(groupId);
             
             // Fetch previous messages from the database
-            const messages = await GroupChatMessage.find({ groupId: groupIdObjectId });
-            socket.emit('previousMessages', messages); // Send messages back to client
+            const messages = await GroupChatMessage.find({ groupId: groupId }).sort({ createdAt: 1 }).exec();
+            socket.emit('previousMessages', messages);
         } catch (error) {
             console.error('Error fetching messages on join:', error);
         }
