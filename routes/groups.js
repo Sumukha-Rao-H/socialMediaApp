@@ -90,7 +90,7 @@ router.get('/groups/:groupId', isLoggedIn, async (req, res) => {
         const isAdmin = group.admins.includes(req.user._id);
         const members = await User.find({ _id: { $in: group.members } });
 
-        res.render('groupDetails', { group, isAdmin, friends, members });
+        res.render('groupDetails', { group, isAdmin, friends, members, user });
 
 
     } catch (error) {

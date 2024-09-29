@@ -7,6 +7,7 @@ const session = require("express-session");
 const http = require("http"); 
 const socketIo = require("socket.io");
 const Message = require('./models/Message');
+const GroupChatMessage = require('./models/groupChatMessages');
 
 
 const app = express();
@@ -65,6 +66,44 @@ io.on('connection', (socket) => {
 
             // Emit the message to the other user
             io.emit('chat message', message);
+        } catch (error) {
+            console.error('Error saving message:', error);
+        }
+    });
+    socket.on('joinGroup', async (groupId) => {
+        
+        if (!mongoose.Types.ObjectId.isValid(groupId)) {
+            console.error('Invalid groupId:', groupId);
+            return;
+        }
+
+        socket.join(groupId); 
+        try {
+            if (!mongoose.Types.ObjectId.isValid(groupId)) {
+                throw new Error('Invalid ObjectId');
+            }
+            // Ensure groupId is converted to an ObjectId
+            const groupIdObjectId = new mongoose.Types.ObjectId(groupId);
+            
+            // Fetch previous messages from the database
+            const messages = await GroupChatMessage.find({ groupId: groupIdObjectId });
+            socket.emit('previousMessages', messages); // Send messages back to client
+        } catch (error) {
+            console.error('Error fetching messages on join:', error);
+        }
+    });
+
+    socket.on('group chat', async (data) => {
+
+        const newMessage = new GroupChatMessage({
+            sender: data.sender,
+            groupId: data.groupId,
+            content: data.content,
+        });
+
+        try {
+            await newMessage.save();
+            io.to(data.groupId).emit('group chat', newMessage);
         } catch (error) {
             console.error('Error saving message:', error);
         }

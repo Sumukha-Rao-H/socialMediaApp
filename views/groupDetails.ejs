@@ -44,11 +44,15 @@
         <div class="chat-interface">
             <h2>Group Chat</h2>
             <div class="chat-box">
-                <div id="chatMessages"></div>
+                <div id="chat-messages" class="chat-messages"></div>
             </div>
             <div class="message-input">
                 <input type="text" id="chatInput" placeholder="Type your message here">
-                <button id="sendMessageBtn">Send</button>
+                <button id="sendMessageBtn" 
+                    data-group-id="<%= group._id.toString() %>"
+                    data-user='<%= JSON.stringify(user) %>'>
+                    Send
+                </button>
             </div>
         </div>
     </div>
@@ -80,13 +84,9 @@
         </form>
         <button id="closeAddMembersPopup">Cancel</button>
     </div>
-
-<script>
-    const isAdmin = <%=isAdmin%>; 
-    const groupAdmins = <%- JSON.stringify(group.admins) %>; 
-    const groupId = '<%= group._id %>';
-</script>
-<script src="/js/groupChat.js"></script>
+    
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/groupChat.js" defer></script>
 </html>
 
 

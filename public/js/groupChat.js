@@ -1,3 +1,80 @@
+const socket = io();
+document.addEventListener('DOMContentLoaded', () => { 
+
+    // Connect and join the group
+    socket.on('connect', () => {
+        const groupId = document.getElementById('sendMessageBtn').getAttribute('data-group-id');
+        if (!groupId) {
+            console.error('Group ID is not found!');
+            return;
+        }
+        socket.emit('joinGroup', groupId); // Emit to join the group
+    });
+
+    socket.on('load previous messages', (messages) => {
+        const chatMessages = document.getElementById('chat-messages');
+        if (!chatMessages) {
+            console.log('chatMessages element not found!');
+            return;
+        }
+
+        messages.forEach(message => {
+            const messageElement = document.createElement('div');
+            messageElement.className = 'chat-message';
+            messageElement.innerHTML = `<strong>${message.sender.username}</strong>: ${message.content}`;
+            chatMessages.appendChild(messageElement);
+        });
+
+        // Scroll to the bottom to show the latest messages
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+        socket.on('group chat', (newMessage) => {
+            const chatMessages = document.getElementById('chat-messages');
+            if (!chatMessages) {
+                console.log('chatMessages element not found!');
+                return;
+            }
+    
+            const messageElement = document.createElement('div');
+            messageElement.className = 'chat-message';
+            const senderName = typeof newMessage.sender === 'object' ? newMessage.sender.username : newMessage.sender;
+            messageElement.innerHTML = `<strong>${senderName}</strong>: ${newMessage.content}`;
+    
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+    });
+
+    // Handle sending messages
+    document.getElementById('sendMessageBtn').onclick = () => {
+        const input = document.getElementById('chatInput');
+        const messageContent = input.value;
+
+        if (messageContent.trim() !== '') {
+            const groupId = document.getElementById('sendMessageBtn').getAttribute('data-group-id');
+            const user = JSON.parse(document.getElementById('sendMessageBtn').getAttribute('data-user'));
+
+            // Emit the chat message to the server
+            socket.emit('group chat', { 
+                sender: user._id, 
+                groupId: groupId, 
+                content: messageContent 
+            });
+
+            // Clear the input field after sending the message
+            input.value = '';
+        } else {
+            console.log('Error: Message content is empty.');
+        }
+    };
+
+    // Allow sending messages by pressing the Enter key
+    document.getElementById('chatInput').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            document.getElementById('sendMessageBtn').click();
+        }
+    });
+///
 document.getElementById('showMembersBtn').addEventListener('click', function() {
     document.getElementById('membersList').classList.toggle('hidden');
 });
@@ -54,8 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const contextMenu = document.getElementById('contextMenu');
     const promoteBtn = document.getElementById('promoteToAdminBtn');
     let selectedMemberId = null;
-
-    // Get groupId, isAdmin, and groupAdmins from server-side EJS
 
     // Show context menu on right-click for members
     document.querySelectorAll('.member-item').forEach(item => {
