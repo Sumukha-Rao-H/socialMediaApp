@@ -45,6 +45,7 @@ app.use('/', require('./routes/upload'));
 app.use('/', require('./routes/friends'));
 app.use('/', require('./routes/chat'));
 app.use('/', require('./routes/groups'));
+app.use('/', require('./routes/feed'));
 
 io.on('connection', (socket) => {
 

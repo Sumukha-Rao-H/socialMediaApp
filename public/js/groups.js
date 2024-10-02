@@ -1,4 +1,3 @@
-
 document.getElementById("createGroupBtn").addEventListener('click', function() {
     document.getElementById('createGroupModal').style.display = 'block';
 });

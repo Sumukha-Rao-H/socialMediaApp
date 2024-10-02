@@ -1,17 +1,47 @@
-<head>
+<head></head>
     <link rel="stylesheet"
     type="text/css"
     href="/css/appStyles.css">
+    <link rel="stylesheet"
+    type="text/css"
+    href="/css/feedStyles.css">
+    
 </head>
+<div class="body">
 
-<div class="taskbar">
-    <h1>Cuckoo</h1>
-    <div class="taskbarOptions">
-        <a href="/profile">Profile</a>
-        <a href="/social">Social</a>
-        <a href="/feed">Feed</a>
-        <a href="/logout">Logout</a>
+    <div class="taskbar">
+        <h1>Cuckoo</h1>
+        <div class="taskbarOptions">
+            <a href="/profile">Profile</a>
+            <a href="/social">Social</a>
+            <a href="/feed">Feed</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    
+    <div class="overlay"></div>
+
+    <div class="postUpload" style="display: none;">
+        <form action="/uploadPost" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea id="description" name="description" rows="4" placeholder="Write a description..." required></textarea>
+            </div>
+          
+            <div class="form-group">
+              <label for="media">Upload Image/Video</label>
+              <input type="file" id="media" name="media" accept="image/*, video/*" required>
+            </div>
+          
+            <div class="form-group">
+              <button type="submit">Post</button>
+            </div>
+          </form>
+    </div>
+
+    <div>
+        <img class="postBtn" src="/uploads/createPost.png">
     </div>
 </div>
 
-<h1>FEED PAGE</h1>
+<script src="/js/feed.js"></script>
