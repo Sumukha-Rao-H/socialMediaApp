@@ -77,3 +77,65 @@ button:hover {
 button:active {
     background-color: #003d80;
 }
+.feed-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.post-item {
+    width: 80%;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-date {
+    color: #777;
+}
+
+.post-content .description {
+    margin-bottom: 10px;
+}
+
+.post-media {
+    max-width: 100%; /* Ensures the image does not overflow its container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px;
+    max-height: 400px; /* Set a max height for the images */
+    object-fit: cover; /* Ensures that the image scales nicely */
+}
+
+
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.like-btn, .comment-btn {
+    background-color: #0084ff;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.like-btn:hover, .comment-btn:hover {
+    background-color: #005bb5;
+}

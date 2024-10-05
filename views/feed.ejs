@@ -21,6 +21,39 @@
     
     <div class="overlay"></div>
 
+    <div class="feed-container">
+      <% if (posts.length > 0) { %>
+          <% posts.forEach(post => { %>
+              <div class="post-item">
+                  <div class="post-header">
+                      <div class="user-info">
+                          <strong><%= post.user.username %></strong>
+                          <span>@<%= post.user.username %></span>
+                      </div>
+                      <span class="post-date"><%= new Date(post.createdAt).toLocaleString() %></span>
+                  </div>
+                  <div class="post-content">
+                      <p class="description"><%= post.description %></p>
+                      <% if (post.mediaType === 'image') { %>
+                          <img src="<%= post.mediaUrl %>" alt="Post Image" class="post-media">
+                      <% } else if (post.mediaType === 'video') { %>
+                          <video controls class="post-media">
+                              <source src="<%= post.mediaUrl %>" type="video/mp4">
+                              Your browser does not support the video tag.
+                          </video>
+                      <% } %>
+                  </div>
+                  <div class="post-actions">
+                      <button class="like-btn">Like <span class="like-count"><%= post.likes %></span></button>
+                      <button class="comment-btn">Comment</button>
+                  </div>
+              </div>
+          <% }); %>
+      <% } else { %>
+          <p>No posts to show in your feed yet.</p>
+      <% } %>
+    </div>
+
     <div class="postUpload" style="display: none;">
         <form action="/uploadPost" method="POST" enctype="multipart/form-data">
             <div class="form-group">

@@ -68,10 +68,19 @@ router.post('/uploadPost',isLoggedIn, upload.single('media'), async (req, res) =
     }
 });
 
-router.get("/feed", isLoggedIn, async (req, res) => {
+router.get('/feed', isLoggedIn, async (req, res) => {
     try {
-        res.render("feed", { user: req.user });
-    } catch (error) {
+        const user = req.user; // Assuming req.user contains user information after authentication
+
+        const userWithFeed = await User.findById(user._id).populate('feed'); // Populate the feed array
+
+        const defaultposts = userWithFeed.feed;
+
+        const posts = defaultposts.reverse()
+
+        res.render('feed', { user, posts }); 
+    } catch (err) {
+        console.error('Error fetching feed:', err);
         res.status(500).send('Internal Server Error');
     }
 });
