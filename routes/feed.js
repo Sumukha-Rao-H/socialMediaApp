@@ -55,6 +55,11 @@ router.post('/uploadPost',isLoggedIn, upload.single('media'), async (req, res) =
         // Save the post to the database
         await newPost.save();
 
+        const friends = await User.find({ _id: { $in: user.friends } });
+        await Promise.all(friends.map(friend => 
+            User.findByIdAndUpdate(friend._id, { $push: { feed: newPost._id } })
+        ));
+
         // Redirect back to feed or any other page
         res.redirect('/feed');
     } catch (err) {

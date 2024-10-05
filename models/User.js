@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Post = require('./Posts');
 const Schema = mongoose.Schema
 const passportLocalMongoose = require('passport-local-mongoose');
 var userSchema = new Schema({
@@ -13,7 +14,11 @@ var userSchema = new Schema({
         default: '/uploads/default.jpg'
     },
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
-    friendRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }]
+    friendRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
+    feed: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
+    }]
 })
 
 
