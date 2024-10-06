@@ -44,7 +44,9 @@
                       <% } %>
                   </div>
                   <div class="post-actions">
-                      <button class="like-btn">Like <span class="like-count"><%= post.likes %></span></button>
+                    <button class="like-btn" data-post-id="<%= post._id %>" data-liked="<%= post.likedBy.includes(user._id) %>">
+                        Likes <span class="like-count"><%= post.likes %></span>
+                    </button>
                       <button class="comment-btn">Comment</button>
                   </div>
               </div>

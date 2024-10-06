@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./User');
 
 // Define the schema for comments
 const commentSchema = new mongoose.Schema({
@@ -18,7 +19,8 @@ const postSchema = new mongoose.Schema({
     description: { type: String, maxlength: 500 },                      
     mediaUrl: { type: String, required: true },                         
     mediaType: { type: String, enum: ['image', 'video'], required: true }, 
-    likes: { type: Number, default: 0 },                                                                 
+    likes: { type: Number, default: 0 },
+    likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],                                                                 
     comments: [commentSchema],                                          
     createdAt: { type: Date, default: Date.now }                        
 });

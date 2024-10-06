@@ -139,3 +139,7 @@ button:active {
 .like-btn:hover, .comment-btn:hover {
     background-color: #005bb5;
 }
+.like-btn.liked {
+    background-color: #1cd165;  /* A different color for liked posts */
+    color: white;
+}

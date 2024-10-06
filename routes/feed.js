@@ -85,4 +85,57 @@ router.get('/feed', isLoggedIn, async (req, res) => {
     }
 });
 
+router.post('/like/:postId', isLoggedIn, async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const userId = req.user._id;
+
+        // Find the post
+        const post = await Post.findById(postId);
+
+        // Check if the user has already liked the post
+        if (post.likedBy.includes(userId)) {
+            return res.status(400).json({ message: 'You have already liked this post' });
+        }
+
+        // Add the like
+        post.likes += 1;
+        post.likedBy.push(userId); // Add user ID to likedBy array
+        await post.save();
+
+        res.status(200).json({ message: 'Post liked', likes: post.likes });
+    } catch (err) {
+        console.error('Error liking post:', err);
+        res.status(500).send('Error liking post');
+    }
+});
+
+router.post('/unlike/:postId', isLoggedIn, async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const userId = req.user._id;
+
+        // Find the post
+        const post = await Post.findById(postId);
+
+        // Check if the user has not liked the post yet
+        const likeIndex = post.likedBy.indexOf(userId);
+        if (likeIndex === -1) {
+            return res.status(400).json({ message: 'You have not liked this post' });
+        }
+
+        // Remove the like
+        post.likes -= 1;
+        post.likedBy.splice(likeIndex, 1); // Remove user ID from likedBy array
+        await post.save();
+
+        res.status(200).json({ message: 'Post unliked', likes: post.likes });
+    } catch (err) {
+        console.error('Error unliking post:', err);
+        res.status(500).send('Error unliking post');
+    }
+});
+
+
+
 module.exports = router;
